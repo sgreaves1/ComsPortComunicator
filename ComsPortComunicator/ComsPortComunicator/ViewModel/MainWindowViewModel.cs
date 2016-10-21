@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO.Ports;
 using System.Linq;
@@ -109,18 +110,22 @@ namespace ComsPortComunicator.ViewModel
         }
 
         public ICommand RefreshPortsCommand { get; set; }
+        public ICommand OpenCommand { get; set; }
+        public ICommand SendCommand { get; set; }
 
         private void InitCommands()
         {
-            RefreshPortsCommand = new RelayCommand(RefreshPortsCommandExecute, RefreshPortsCommandCanExecute);
+            RefreshPortsCommand = new RelayCommand(ExecuteRefreshPortsCommand, CanExecuteRefreshPortsCommand);
+            OpenCommand = new RelayCommand(ExecuteOpenCommand, CanExecuteOpenCommand);
+            SendCommand = new RelayCommand(ExecuteSendCommand, CanExecuteSendCommand);
         }
 
-        private bool RefreshPortsCommandCanExecute()
+        private bool CanExecuteRefreshPortsCommand()
         {
             return true;
         }
 
-        private void RefreshPortsCommandExecute()
+        private void ExecuteRefreshPortsCommand()
         {
             ComPortNames.Clear();
             ComPort.PortName = "";
@@ -134,6 +139,26 @@ namespace ComsPortComunicator.ViewModel
 
             if (ComPortNames.Count > 0)
                 ComPort.PortName = ComPortNames.First();
+        }
+
+        private bool CanExecuteOpenCommand()
+        {
+            return true;
+        }
+
+        private void ExecuteOpenCommand()
+        {
+
+        }
+
+        private bool CanExecuteSendCommand()
+        {
+            return true;
+        }
+
+        private void ExecuteSendCommand()
+        {
+
         }
     }
 }

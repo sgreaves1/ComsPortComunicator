@@ -37,5 +37,15 @@
             <Label Content="HandShake:" Width="75"/>
             <ComboBox Width="100" ItemsSource="{Binding Path=ComHandShakes}" SelectedItem="{Binding Path=ComPort.HandShake}"/>
         </StackPanel>
+        
+        <Button Width="100" Height="25" Content="Open"/>
+        
+        <StackPanel Orientation="Horizontal">
+            <TextBox Width="400" Margin="10,0,10,0"/>
+            <Button Width="100" Content="Send"/>
+        </StackPanel>
+        
+        <Label Content="Recieved" HorizontalAlignment="Center"/>
+        <TextBlock Height="64"/>
     </StackPanel>
 </Window>
