@@ -20,6 +20,8 @@ namespace ComsPortComunicator.ViewModel
         private List<string> _comHandShakes = new List<string>();
 
         private ComPortModel _comPort = new ComPortModel();
+        
+        private string _textToSend;
 
         public MainWindowViewModel()
         {
@@ -109,6 +111,16 @@ namespace ComsPortComunicator.ViewModel
             }
         }
 
+        public string TextToSend
+        {
+            get { return _textToSend; }
+            set
+            {
+                _textToSend = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand RefreshPortsCommand { get; set; }
         public ICommand OpenCommand { get; set; }
         public ICommand SendCommand { get; set; }
@@ -148,7 +160,7 @@ namespace ComsPortComunicator.ViewModel
 
         private void ExecuteOpenCommand()
         {
-
+            ComPort.OpenClose();
         }
 
         private bool CanExecuteSendCommand()
@@ -158,7 +170,8 @@ namespace ComsPortComunicator.ViewModel
 
         private void ExecuteSendCommand()
         {
-
+            ComPort.Send(TextToSend);
+            TextToSend = "";
         }
     }
 }

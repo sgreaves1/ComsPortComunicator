@@ -1,4 +1,8 @@
-﻿namespace ComsPortComunicator.Model
+﻿using System;
+using System.IO.Ports;
+using ComsPortComunicator.Enum;
+
+namespace ComsPortComunicator.Model
 {
     public class ComPortModel : BaseModel
     {
@@ -8,6 +12,51 @@
         private string _stopBits;
         private string _parity;
         private string _handShake;
+        private ComOpenState _state;
+        private SerialPort _serialPort;
+
+        public ComPortModel()
+        {
+            State = ComOpenState.Closed;
+        }
+
+        public void OpenClose()
+        {
+            switch (State)
+            {
+                    case ComOpenState.Open:
+                    Close();
+                    break;
+
+                    case ComOpenState.Closed:
+                    Open();
+                    break;
+            }
+        }
+
+        public void Open()
+        {
+            _serialPort = new SerialPort();
+            _serialPort.PortName = PortName;
+            _serialPort.BaudRate = Convert.ToInt32(BaudRate);
+            _serialPort.DataBits = Convert.ToInt16(DataBits);
+            _serialPort.StopBits = (StopBits)System.Enum.Parse(typeof(StopBits), StopBits);
+            _serialPort.Handshake = (Handshake)System.Enum.Parse(typeof(Handshake), HandShake);
+            _serialPort.Parity = (Parity)System.Enum.Parse(typeof(Parity), Parity);
+            _serialPort.Open();
+            State = ComOpenState.Open;
+        }
+
+        public void Close()
+        {
+            _serialPort.Close();
+            State = ComOpenState.Closed;
+        }
+
+        public void Send(string text)
+        {
+            _serialPort.Write(text);
+        }
 
         public string PortName
         {
@@ -69,5 +118,14 @@
             }
         }
 
+        public ComOpenState State
+        {
+            get { return _state; }
+            set
+            {
+                _state = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

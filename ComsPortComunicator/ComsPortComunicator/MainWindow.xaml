@@ -38,11 +38,11 @@
             <ComboBox Width="100" ItemsSource="{Binding Path=ComHandShakes}" SelectedItem="{Binding Path=ComPort.HandShake}"/>
         </StackPanel>
         
-        <Button Width="100" Height="25" Content="Open"/>
+        <Button Width="100" Height="25" Content="Open" Command="{Binding Path=OpenCommand}"/>
         
         <StackPanel Orientation="Horizontal">
-            <TextBox Width="400" Margin="10,0,10,0"/>
-            <Button Width="100" Content="Send"/>
+            <TextBox Width="400" Margin="10,0,10,0" Text="{Binding Path=TextToSend}"/>
+            <Button Width="100" Content="Send" Command="{Binding Path=SendCommand}"/>
         </StackPanel>
         
         <Label Content="Recieved" HorizontalAlignment="Center"/>
