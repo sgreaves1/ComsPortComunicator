@@ -3,13 +3,14 @@ using System.IO.Ports;
 using System.Linq;
 using System.Windows.Input;
 using ComsPortComunicator.Command;
+using ComsPortComunicator.Model;
 
 namespace ComsPortComunicator.ViewModel
 {
     public class MainWindowViewModel : BaseViewModel
     {
         private ObservableCollection<string> _comPortNames = new ObservableCollection<string>();
-        private string _selectedPortName;
+        private ComPortModel _comPort = new ComPortModel();
 
         public MainWindowViewModel()
         {
@@ -22,12 +23,12 @@ namespace ComsPortComunicator.ViewModel
             set { _comPortNames = value; }
         }
 
-        public string SelectedPortName
+        public ComPortModel ComPort
         {
-            get { return _selectedPortName; }
+            get { return _comPort; }
             set
             {
-                _selectedPortName = value;
+                _comPort = value;
                 OnPropertyChanged();
             }
         }
@@ -47,7 +48,7 @@ namespace ComsPortComunicator.ViewModel
         private void RefreshPortsCommandExecute()
         {
             ComPortNames.Clear();
-            SelectedPortName = "";
+            ComPort.PortName = "";
 
             string[] comNames = SerialPort.GetPortNames();
 
@@ -57,7 +58,7 @@ namespace ComsPortComunicator.ViewModel
             }
 
             if (ComPortNames.Count > 0)
-                SelectedPortName = ComPortNames.First();
+                ComPort.PortName = ComPortNames.First();
         }
     }
 }
