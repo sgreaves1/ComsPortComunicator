@@ -7,6 +7,6 @@
         Title="MainWindow" Height="350" Width="525">
     <StackPanel>
         <Button Width="100" Height="25" Content="Refresh Ports" Command="{Binding Path=RefreshPortsCommand}"/>
-        <ComboBox Width="300"/>
+        <ComboBox Width="300" ItemsSource="{Binding Path=ComPortNames}"/>
     </StackPanel>
 </Window>
