@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Input;
 using ComsPortComunicator.Command;
+using ComsPortComunicator.Enum;
 using ComsPortComunicator.Model;
 
 namespace ComsPortComunicator.ViewModel
@@ -21,11 +22,15 @@ namespace ComsPortComunicator.ViewModel
         private List<string> _comHandShakes = new List<string>();
 
         private ComPortModel _comPort = new ComPortModel();
-        
+
+        private string _portOpenString;
+
         private string _textToSend;
 
         public MainWindowViewModel()
         {
+            PortOpenString = "Open";
+
             InitCommands();
 
             PopulateLists();
@@ -115,6 +120,16 @@ namespace ComsPortComunicator.ViewModel
                 OnPropertyChanged();
             }
         }
+        
+        public string PortOpenString
+        {
+            get { return _portOpenString; }
+            set
+            {
+                _portOpenString = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string TextToSend
         {
@@ -144,6 +159,9 @@ namespace ComsPortComunicator.ViewModel
 
         private void ExecuteRefreshPortsCommand()
         {
+            ComPort.Close();
+            PortOpenString = "Open";
+
             ComPortNames.Clear();
             ComPort.PortName = "";
 
@@ -173,6 +191,12 @@ namespace ComsPortComunicator.ViewModel
         private void ExecuteOpenCommand()
         {
             ComPort.OpenClose();
+
+            if (ComPort.State == ComOpenState.Closed)
+                PortOpenString = "Open";
+
+            if (ComPort.State == ComOpenState.Open)
+                PortOpenString = "Close";
         }
 
         private bool CanExecuteSendCommand()

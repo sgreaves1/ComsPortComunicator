@@ -58,7 +58,8 @@ namespace ComsPortComunicator.Model
 
         public void Send(string text)
         {
-            _serialPort.Write(text);
+            if (!string.IsNullOrEmpty(text))
+                _serialPort.Write(text);
         }
 
         public string PortName

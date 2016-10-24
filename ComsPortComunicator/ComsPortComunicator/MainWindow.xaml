@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converter="clr-namespace:ComsPortComunicator.Converter"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="550" Width="725">
     
     <Window.Resources>
         <converter:PortStatusToVisibilityConverter x:Key="StateConverter"/>
@@ -47,12 +47,12 @@
                 <ComboBox Width="100" ItemsSource="{Binding Path=ComHandShakes}" SelectedItem="{Binding Path=ComPort.HandShake}"/>
             </StackPanel>
         
-            <Button Width="100" Height="25" Content="Open" Command="{Binding Path=OpenCommand}"/>
+            <Button Margin="10" Width="100" Height="25" Content="{Binding Path=PortOpenString}" Command="{Binding Path=OpenCommand}"/>
 
 
             <StackPanel Visibility="{Binding Path=ComPort.State, Converter={StaticResource StateConverter}, ConverterParameter=Normal}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Width="400" Margin="10,0,10,0" Text="{Binding Path=TextToSend}"/>
+                    <TextBox Width="590" Margin="10,0,10,0" Text="{Binding Path=TextToSend}"/>
                     <Button Width="100" Content="Send" Command="{Binding Path=SendCommand}"/>
                 </StackPanel>
         
