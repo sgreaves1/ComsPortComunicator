@@ -57,7 +57,7 @@
                 </StackPanel>
         
                 <Label Content="Recieved" HorizontalAlignment="Center"/>
-                <TextBlock Height="64"/>
+                <TextBlock Height="64" Text="{Binding Path=RecievedText}"/>
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Center" Visibility="{Binding Path=ComPort.State, Converter={StaticResource StateConverter}, ConverterParameter=Inverted}">

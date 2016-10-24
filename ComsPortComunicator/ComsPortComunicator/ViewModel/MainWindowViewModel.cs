@@ -6,6 +6,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Threading;
 using ComsPortComunicator.Command;
 using ComsPortComunicator.Enum;
 using ComsPortComunicator.Model;
@@ -27,6 +28,10 @@ namespace ComsPortComunicator.ViewModel
 
         private string _textToSend;
 
+        private string _recievedText;
+
+        private delegate void SetTextCallBack(string text);
+
         public MainWindowViewModel()
         {
             PortOpenString = "Open";
@@ -34,8 +39,16 @@ namespace ComsPortComunicator.ViewModel
             InitCommands();
 
             PopulateLists();
+
+            ComPort.PortDataReceivedEvent += Handle;
         }
 
+        private void Handle(object sender, SerialDataReceivedEventArgs serialDataReceivedEventArgs)
+        {
+            RecievedText += ComPort.ReadExisting();
+            RecievedText += "\n";
+        }
+        
         private void PopulateLists()
         {
             ComBaudRates.Add("300");
@@ -137,6 +150,16 @@ namespace ComsPortComunicator.ViewModel
             set
             {
                 _textToSend = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string RecievedText
+        {
+            get { return _recievedText; }
+            set
+            {
+                _recievedText = value;
                 OnPropertyChanged();
             }
         }

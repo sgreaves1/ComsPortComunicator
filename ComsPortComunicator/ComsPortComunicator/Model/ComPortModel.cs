@@ -33,10 +33,11 @@ namespace ComsPortComunicator.Model
                     break;
             }
         }
-
+        
         public void Open()
         {
             _serialPort = new SerialPort();
+            _serialPort.DataReceived += PortDataReceivedEvent;
             _serialPort.PortName = PortName;
             _serialPort.BaudRate = Convert.ToInt32(BaudRate);
             _serialPort.DataBits = Convert.ToInt16(DataBits);
@@ -60,6 +61,11 @@ namespace ComsPortComunicator.Model
         {
             if (!string.IsNullOrEmpty(text))
                 _serialPort.Write(text);
+        }
+
+        public string ReadExisting()
+        {
+            return _serialPort.ReadExisting();
         }
 
         public string PortName
@@ -131,5 +137,7 @@ namespace ComsPortComunicator.Model
                 OnPropertyChanged();
             }
         }
+
+        public SerialDataReceivedEventHandler PortDataReceivedEvent;
     }
 }
