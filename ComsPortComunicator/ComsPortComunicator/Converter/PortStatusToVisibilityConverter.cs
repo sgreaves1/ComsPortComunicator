@@ -24,17 +24,7 @@ namespace ComsPortComunicator.Converter
                 direction = (Direction) System.Enum.Parse(typeof (Direction), (string) parameter);
             
             // Convert state to visible Boolean.
-            bool visible = false;
-            switch (state)
-            {
-                case ComOpenState.Open:
-                    visible = true;
-                    break;
-
-                case ComOpenState.Closed:
-                    visible = false;
-                    break;
-            }
+            bool visible = state == ComOpenState.Open;
 
             // Invert if needed.
             if (direction == Direction.Inverted)

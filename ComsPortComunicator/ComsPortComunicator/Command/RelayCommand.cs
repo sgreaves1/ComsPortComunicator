@@ -10,12 +10,12 @@ namespace ComsPortComunicator.Command
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
-        private Action methodToExecute;
-        private Func<bool> canExecuteEvaluator;
+        private Action _methodToExecute;
+        private Func<bool> _canExecuteEvaluator;
         public RelayCommand(Action methodToExecute, Func<bool> canExecuteEvaluator)
         {
-            this.methodToExecute = methodToExecute;
-            this.canExecuteEvaluator = canExecuteEvaluator;
+            _methodToExecute = methodToExecute;
+            _canExecuteEvaluator = canExecuteEvaluator;
         }
         public RelayCommand(Action methodToExecute)
             : this(methodToExecute, null)
@@ -23,19 +23,17 @@ namespace ComsPortComunicator.Command
         }
         public bool CanExecute(object parameter)
         {
-            if (this.canExecuteEvaluator == null)
+            if (_canExecuteEvaluator == null)
             {
                 return true;
             }
-            else
-            {
-                bool result = this.canExecuteEvaluator.Invoke();
-                return result;
-            }
+            bool result = _canExecuteEvaluator.Invoke();
+            return result;
+            
         }
         public void Execute(object parameter)
         {
-            this.methodToExecute.Invoke();
+            _methodToExecute.Invoke();
         }
     }
 }

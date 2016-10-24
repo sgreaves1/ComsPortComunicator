@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO.Ports;
 using System.Linq;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Threading;
 using ComsPortComunicator.Command;
 using ComsPortComunicator.Enum;
 using ComsPortComunicator.Model;
@@ -29,8 +26,7 @@ namespace ComsPortComunicator.ViewModel
         private string _textToSend;
 
         private string _recievedText;
-
-        private delegate void SetTextCallBack(string text);
+        
 
         public MainWindowViewModel()
         {
@@ -40,10 +36,10 @@ namespace ComsPortComunicator.ViewModel
 
             PopulateLists();
 
-            ComPort.PortDataReceivedEvent += Handle;
+            ComPort.PortDataReceivedEvent += DataRecieved;
         }
 
-        private void Handle(object sender, SerialDataReceivedEventArgs serialDataReceivedEventArgs)
+        private void DataRecieved(object sender, SerialDataReceivedEventArgs serialDataReceivedEventArgs)
         {
             RecievedText += ComPort.ReadExisting();
             RecievedText += "\n";
