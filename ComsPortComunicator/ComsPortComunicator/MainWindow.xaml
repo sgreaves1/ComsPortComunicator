@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converter="clr-namespace:ComsPortComunicator.Converter"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="725">
+        Title="Com Port Communicator" Height="550" Width="725">
     
     <Window.InputBindings>
         <KeyBinding Command="{Binding RefreshPortsCommand}" Key="F5"></KeyBinding>
@@ -61,7 +61,12 @@
                 </StackPanel>
 
                 <Label Content="Received" HorizontalAlignment="Center"/>
-                <TextBlock Margin="10,0,10,0" Height="64" Text="{Binding Path=RecievedText}"/>
+                <Border BorderThickness="1" Margin="10,0,10,0" BorderBrush="Black" Height="164">
+                    <ScrollViewer>
+                    <TextBox Margin="1,0,0,0" Text="{Binding Path=RecievedText}"/>
+                    </ScrollViewer>
+                </Border>
+                
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Center" Visibility="{Binding Path=ComPort.State, Converter={StaticResource StateConverter}, ConverterParameter=Inverted}">
