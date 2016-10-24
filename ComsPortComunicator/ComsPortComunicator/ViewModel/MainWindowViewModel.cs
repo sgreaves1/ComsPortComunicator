@@ -43,13 +43,12 @@ namespace ComsPortComunicator.ViewModel
             ComBaudRates.Add("38400");
             ComBaudRates.Add("57600");
             ComBaudRates.Add("115200");
-
+            
             ComDataBits.Add("5");
             ComDataBits.Add("6");
             ComDataBits.Add("7");
             ComDataBits.Add("8");
-
-            ComStopBits.Add("None");
+            
             ComStopBits.Add("One");
             ComStopBits.Add("OnePointFive");
             ComStopBits.Add("Two");
@@ -156,7 +155,14 @@ namespace ComsPortComunicator.ViewModel
             }
 
             if (ComPortNames.Count > 0)
+            {
                 ComPort.PortName = ComPortNames.First();
+                ComPort.BaudRate = ComBaudRates.First();
+                ComPort.DataBits = ComDataBits.First();
+                ComPort.HandShake = ComHandShakes.First();
+                ComPort.Parity = ComParities.First();
+                ComPort.StopBits = ComStopBits.First();
+            }
         }
 
         private bool CanExecuteOpenCommand()
