@@ -3,8 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converter="clr-namespace:ComsPortComunicator.Converter"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    
+    <Window.Resources>
+        <converter:PortStatusToVisibilityConverter x:Key="converter"/>
+    </Window.Resources>
+    
     <StackPanel>
         <Button Width="100" Height="25" Content="Refresh Ports" Command="{Binding Path=RefreshPortsCommand}"/>
         
@@ -13,10 +19,14 @@
             <ComboBox Width="100" ItemsSource="{Binding Path=ComPortNames}" SelectedItem="{Binding Path=ComPort.PortName}"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="Baud Rate:" Width="75"/>
-            <ComboBox Width="100" ItemsSource="{Binding Path=ComBaudRates}" SelectedItem="{Binding Path=ComPort.BaudRate}"/>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Baud Rate:" Width="75"/>
+                <ComboBox Width="100" ItemsSource="{Binding Path=ComBaudRates}" SelectedItem="{Binding Path=ComPort.BaudRate}"/>
+            </StackPanel>
         </StackPanel>
+        
+        
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Data Bits:" Width="75"/>
@@ -39,13 +49,20 @@
         </StackPanel>
         
         <Button Width="100" Height="25" Content="Open" Command="{Binding Path=OpenCommand}"/>
+
+
+        <StackPanel Visibility="{Binding Path=ComPort.State, Converter={StaticResource converter}, ConverterParameter=Normal}">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Width="400" Margin="10,0,10,0" Text="{Binding Path=TextToSend}"/>
+                <Button Width="100" Content="Send" Command="{Binding Path=SendCommand}"/>
+            </StackPanel>
         
-        <StackPanel Orientation="Horizontal">
-            <TextBox Width="400" Margin="10,0,10,0" Text="{Binding Path=TextToSend}"/>
-            <Button Width="100" Content="Send" Command="{Binding Path=SendCommand}"/>
+            <Label Content="Recieved" HorizontalAlignment="Center"/>
+            <TextBlock Height="64"/>
         </StackPanel>
-        
-        <Label Content="Recieved" HorizontalAlignment="Center"/>
-        <TextBlock Height="64"/>
+
+        <StackPanel Visibility="{Binding Path=ComPort.State, Converter={StaticResource converter}, ConverterParameter=Inverted}">
+            <Label Content="Open Port to send and recieve data."/>
+        </StackPanel>
     </StackPanel>
 </Window>
