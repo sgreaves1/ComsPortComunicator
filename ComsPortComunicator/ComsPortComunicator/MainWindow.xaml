@@ -14,6 +14,14 @@
     <Window.Resources>
         <converter:PortStatusToVisibilityConverter x:Key="StateConverter"/>
         <converter:PortCountToVisibilityConverter x:Key="CountConverter"/>
+
+        <Style TargetType="ComboBox">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=ComPort.State}" Value="Open">
+                    <Setter Property="ComboBox.IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     
     <StackPanel>
@@ -63,7 +71,7 @@
                 <Label Content="Received" HorizontalAlignment="Center"/>
                 <Border BorderThickness="1" Margin="10,0,10,0" BorderBrush="Black" Height="164">
                     <ScrollViewer>
-                    <TextBox Margin="1,0,0,0" Text="{Binding Path=RecievedText}"/>
+                        <TextBox Margin="1,0,0,0" Text="{Binding Path=RecievedText}"/>
                     </ScrollViewer>
                 </Border>
                 
