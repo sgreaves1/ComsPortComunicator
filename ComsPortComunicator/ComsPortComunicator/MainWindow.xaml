@@ -43,7 +43,7 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Label Content="HandShake:" Width="75"/>
+                <Label Content="Handshake:" Width="75"/>
                 <ComboBox Width="100" ItemsSource="{Binding Path=ComHandShakes}" SelectedItem="{Binding Path=ComPort.HandShake}"/>
             </StackPanel>
         
@@ -55,8 +55,8 @@
                     <TextBox Width="590" Margin="10,0,10,0" Text="{Binding Path=TextToSend}"/>
                     <Button Width="100" Content="Send" Command="{Binding Path=SendCommand}"/>
                 </StackPanel>
-        
-                <Label Content="Recieved" HorizontalAlignment="Center"/>
+
+                <Label Content="Received" HorizontalAlignment="Center"/>
                 <TextBlock Height="64" Text="{Binding Path=RecievedText}"/>
             </StackPanel>
 

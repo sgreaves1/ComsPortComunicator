@@ -30,7 +30,7 @@ namespace ComsPortComunicator.ViewModel
 
         public MainWindowViewModel()
         {
-            PortOpenString = "Open";
+            PortOpenString = "Open Port";
 
             InitCommands();
 
@@ -179,7 +179,7 @@ namespace ComsPortComunicator.ViewModel
         private void ExecuteRefreshPortsCommand()
         {
             ComPort.Close();
-            PortOpenString = "Open";
+            PortOpenString = "Open Port";
 
             ComPortNames.Clear();
             ComPort.PortName = "";
@@ -212,10 +212,10 @@ namespace ComsPortComunicator.ViewModel
             ComPort.OpenClose();
 
             if (ComPort.State == ComOpenState.Closed)
-                PortOpenString = "Open";
+                PortOpenString = "Open Port";
 
             if (ComPort.State == ComOpenState.Open)
-                PortOpenString = "Close";
+                PortOpenString = "Close Port";
         }
 
         private bool CanExecuteSendCommand()
