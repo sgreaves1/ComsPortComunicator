@@ -184,6 +184,8 @@ namespace ComsPortComunicator.ViewModel
             ComPortNames.Clear();
             ComPort.PortName = "";
 
+            RecievedText = "";
+
             string[] comNames = SerialPort.GetPortNames();
 
             foreach (string name in comNames)

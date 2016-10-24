@@ -14,6 +14,7 @@
     <Window.Resources>
         <converter:PortStatusToVisibilityConverter x:Key="StateConverter"/>
         <converter:PortCountToVisibilityConverter x:Key="CountConverter"/>
+        <converter:StringEmptyToVisibilityConverter x:Key="StringConverter"/>
 
         <Style TargetType="ComboBox">
             <Style.Triggers>
@@ -68,13 +69,32 @@
                     <Button Width="100" Content="Send" Command="{Binding Path=SendCommand}"/>
                 </StackPanel>
 
-                <Label Content="Received" HorizontalAlignment="Center"/>
-                <Border BorderThickness="1" Margin="10,0,10,0" BorderBrush="Black" Height="164">
-                    <ScrollViewer>
-                        <TextBox Margin="1,0,0,0" Text="{Binding Path=RecievedText}"/>
-                    </ScrollViewer>
-                </Border>
+                <StackPanel>
+                    <StackPanel.Style>
+                        <Style>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=RecievedText}" Value="">
+                                    <Setter Property="StackPanel.Visibility" Value="Collapsed"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=RecievedText}" Value="{x:Null}">
+                                    <Setter Property="StackPanel.Visibility" Value="Collapsed"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <Label Content="Received" HorizontalAlignment="Center"/>
+                    <Border BorderThickness="1" Margin="10,0,10,0" BorderBrush="Black" Height="164">
+                        <ScrollViewer>
+                            <TextBlock Margin="1,0,0,0" Text="{Binding Path=RecievedText}"/>
+                        </ScrollViewer>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" Visibility="{Binding Path=RecievedText, Converter={StaticResource StringConverter}}">
+                    <Label Content="No Data Received Yet!"/>
+                </StackPanel>
                 
+
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Center" Visibility="{Binding Path=ComPort.State, Converter={StaticResource StateConverter}, ConverterParameter=Inverted}">

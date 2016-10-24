@@ -58,6 +58,7 @@
     <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="Converter\PortCountToVisibilityConverter.cs" />
     <Compile Include="Converter\PortStatusToVisibilityConverter.cs" />
+    <Compile Include="Converter\StringEmptyToVisibilityConverter.cs" />
     <Compile Include="Enum\ComOpenState.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\ComPortModel.cs" />
