@@ -2,11 +2,10 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using ComsPortComunicator.Enum;
 
 namespace ComsPortComunicator.Converter
 {
-    public class PortStatusToVisibilityConverter : IValueConverter
+    public class PortCountToVisibilityConverter : IValueConverter
     {
         enum Direction
         {
@@ -15,26 +14,16 @@ namespace ComsPortComunicator.Converter
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            // Convert value to State.
-            ComOpenState state = (ComOpenState) value;
+            // Convert value to Integer.
+            int count = (int) value;
 
             // Get if the converter is to be inverted.
             Direction direction = Direction.Normal;
             if (!string.IsNullOrEmpty(parameter.ToString()))
-                direction = (Direction) System.Enum.Parse(typeof (Direction), (string) parameter);
-            
-            // Convert state to visible Boolean.
-            bool visible = false;
-            switch (state)
-            {
-                case ComOpenState.Open:
-                    visible = true;
-                    break;
+                direction = (Direction)System.Enum.Parse(typeof(Direction), (string)parameter);
 
-                case ComOpenState.Closed:
-                    visible = false;
-                    break;
-            }
+            // Convert count to visible Boolean.
+            bool visible = count > 0;
 
             // Invert if needed.
             if (direction == Direction.Inverted)
