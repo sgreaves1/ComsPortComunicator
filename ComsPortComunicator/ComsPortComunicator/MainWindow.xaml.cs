@@ -1,4 +1,6 @@
-﻿using ComsPortComunicator.ViewModel;
+﻿using System;
+using System.ComponentModel;
+using ComsPortComunicator.ViewModel;
 
 namespace ComsPortComunicator
 {
@@ -11,7 +13,11 @@ namespace ComsPortComunicator
         {
             InitializeComponent();
 
-            DataContext = new MainWindowViewModel();
+            MainWindowViewModel viewModel = new MainWindowViewModel();
+
+            DataContext = viewModel;
+
+            Closing += viewModel.OnClosing;
         }
     }
 }

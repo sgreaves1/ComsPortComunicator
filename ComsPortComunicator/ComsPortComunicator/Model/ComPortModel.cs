@@ -49,8 +49,11 @@ namespace ComsPortComunicator.Model
 
         public void Close()
         {
-            _serialPort.Close();
-            State = ComOpenState.Closed;
+            if (_serialPort != null && _serialPort.IsOpen)
+            {
+                _serialPort.Close();
+                State = ComOpenState.Closed;
+            }
         }
 
         public void Send(string text)

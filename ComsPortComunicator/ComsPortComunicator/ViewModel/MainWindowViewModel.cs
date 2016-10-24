@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Windows.Documents;
@@ -63,6 +64,11 @@ namespace ComsPortComunicator.ViewModel
             ComHandShakes.Add("XOnXOff");
             ComHandShakes.Add("RequestToSend");
             ComHandShakes.Add("RequestToSendXOnxOff");
+        }
+
+        public void OnClosing(object sender, CancelEventArgs cancelEventArgs)
+        {
+            ComPort.Close();
         }
 
         public ObservableCollection<string> ComPortNames
