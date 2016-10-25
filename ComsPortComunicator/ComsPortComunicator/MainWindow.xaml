@@ -15,6 +15,7 @@
         <converter:PortStatusToVisibilityConverter x:Key="StateConverter"/>
         <converter:PortCountToVisibilityConverter x:Key="CountConverter"/>
         <converter:StringEmptyToVisibilityConverter x:Key="StringConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
         <Style TargetType="ComboBox">
             <Style.Triggers>
@@ -104,6 +105,10 @@
 
         <StackPanel HorizontalAlignment="Center" Visibility="{Binding Path=ComPortNames.Count, Converter={StaticResource CountConverter}, ConverterParameter=Inverted}">
             <Label Content="To Begin, Refresh Ports."/>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Center" Visibility="{Binding Path=ComPort.OpenPortFailed, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverted}">
+            <Label Content="Failed To Open Port!" Foreground="Red"></Label>
         </StackPanel>
     </StackPanel>
 </Window>

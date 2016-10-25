@@ -14,6 +14,7 @@ namespace ComsPortComunicator.Model
         private string _handShake;
         private ComOpenState _state;
         private SerialPort _serialPort;
+        private bool _openPortFailed = false;
 
         public ComPortModel()
         {
@@ -36,15 +37,26 @@ namespace ComsPortComunicator.Model
         
         public void Open()
         {
-            _serialPort = new SerialPort();
-            _serialPort.DataReceived += PortDataReceivedEvent;
-            _serialPort.PortName = PortName;
-            _serialPort.BaudRate = Convert.ToInt32(BaudRate);
-            _serialPort.DataBits = Convert.ToInt16(DataBits);
-            _serialPort.StopBits = (StopBits)System.Enum.Parse(typeof(StopBits), StopBits);
-            _serialPort.Handshake = (Handshake)System.Enum.Parse(typeof(Handshake), HandShake);
-            _serialPort.Parity = (Parity)System.Enum.Parse(typeof(Parity), Parity);
-            _serialPort.Open();
+            try
+            {
+                OpenPortFailed = false;
+                _serialPort = new SerialPort();
+                _serialPort.DataReceived += PortDataReceivedEvent;
+                _serialPort.PortName = PortName;
+                _serialPort.BaudRate = Convert.ToInt32(BaudRate);
+                _serialPort.DataBits = Convert.ToInt16(DataBits);
+                _serialPort.StopBits = (StopBits)System.Enum.Parse(typeof(StopBits), StopBits);
+                _serialPort.Handshake = (Handshake)System.Enum.Parse(typeof(Handshake), HandShake);
+                _serialPort.Parity = (Parity)System.Enum.Parse(typeof(Parity), Parity);
+                _serialPort.Open();
+            }
+            catch
+            {
+                _serialPort = null;
+                OpenPortFailed = true;
+                return;
+            }
+            
             State = ComOpenState.Open;
         }
 
@@ -134,6 +146,16 @@ namespace ComsPortComunicator.Model
             set
             {
                 _state = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool OpenPortFailed
+        {
+            get { return _openPortFailed; }
+            set
+            {
+                _openPortFailed = value;
                 OnPropertyChanged();
             }
         }
