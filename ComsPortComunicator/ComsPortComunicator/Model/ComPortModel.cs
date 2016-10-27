@@ -41,7 +41,13 @@ namespace ComsPortComunicator.Model
             {
                 OpenPortFailed = false;
                 _serialPort = new SerialPort();
+
+                // Events
                 _serialPort.DataReceived += PortDataReceivedEvent;
+                _serialPort.ErrorReceived += SerialPortOnErrorReceived;
+                _serialPort.PinChanged += SerialPortOnPinChanged;
+                _serialPort.Disposed += SerialPortOnDisposed;
+
                 _serialPort.PortName = PortName;
                 _serialPort.BaudRate = Convert.ToInt32(BaudRate);
                 _serialPort.DataBits = Convert.ToInt16(DataBits);
@@ -58,6 +64,39 @@ namespace ComsPortComunicator.Model
             }
             
             State = ComOpenState.Open;
+        }
+
+        private void SerialPortOnDisposed(object sender, EventArgs eventArgs)
+        {
+            UpdateState();
+        }
+
+        private void SerialPortOnPinChanged(object sender, SerialPinChangedEventArgs serialPinChangedEventArgs)
+        {
+            UpdateState();
+        }
+
+        private void SerialPortOnErrorReceived(object sender, SerialErrorReceivedEventArgs serialErrorReceivedEventArgs)
+        {
+            UpdateState();
+        }
+
+        private void UpdateState()
+        {
+            if (_serialPort != null)
+            {
+                if (_serialPort.IsOpen)
+                {
+                    State = ComOpenState.Open;
+                }
+                else
+                {
+                    State = ComOpenState.Closed;
+                }
+                return;
+            }
+
+            State = ComOpenState.Closed;
         }
 
         public void Close()
