@@ -16,6 +16,7 @@
     <Window.Resources>
         <converter:PortStatusToVisibilityConverter x:Key="StateConverter"/>
         <converter:PortCountToVisibilityConverter x:Key="CountConverter"/>
+        <converter:DataToSendTypeToVisibilityConverter x:Key="DataToSendConverter"/>
         <converter:StringEmptyToVisibilityConverter x:Key="StringConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
@@ -91,18 +92,21 @@
            
             <StackPanel Visibility="{Binding Path=ComPort.State, Converter={StaticResource StateConverter}, ConverterParameter=Normal}">
 
-                <ComboBox Width="100" Margin="0,0,0,10" ItemsSource="{Binding Source={StaticResource DataTypeValues}}" SelectedValue="{Binding Path=DataToSendType}"/>
-                            
                 <Border BorderThickness="1" BorderBrush="Blue" CornerRadius="6">
-                <StackPanel>
-                    
-                    <Label HorizontalAlignment="Center" Content="Type a string into the text box and click send to send your string"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                            <TextBox  Width="500" Margin="10,0,10,10" Text="{Binding Path=TextToSend}"/>
-                            <Button Width="100" Content="Send" Margin="0,0,0,10" Command="{Binding Path=SendCommand}"/>
+                    <StackPanel>
+                        <Label Content="Data To Send." HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="Blue"/>
+                        <ComboBox Width="100" Margin="0,0,0,10" ItemsSource="{Binding Source={StaticResource DataTypeValues}}" SelectedValue="{Binding Path=DataToSendType}"/>
+
+                        <StackPanel Visibility="{Binding Path=DataToSendType, Converter={StaticResource DataToSendConverter}, ConverterParameter=Normal}">
+                            <Label HorizontalAlignment="Center" Content="Type a string into the text box and click send to send your string"/>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                <TextBox  Width="500" Margin="10,0,10,10" Text="{Binding Path=TextToSend}"/>
+                                <Button Width="100" Content="Send" Margin="0,0,0,10" Command="{Binding Path=SendCommand}"/>
+                            </StackPanel>
+                        </StackPanel>
+
                     </StackPanel>
-                        
-                </StackPanel>
                 </Border>
 
 
