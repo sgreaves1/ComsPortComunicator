@@ -60,6 +60,7 @@
     <Compile Include="Converter\PortStatusToVisibilityConverter.cs" />
     <Compile Include="Converter\StringEmptyToVisibilityConverter.cs" />
     <Compile Include="Enum\ComOpenState.cs" />
+    <Compile Include="Enum\DataToSendType.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\ComPortModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
