@@ -106,6 +106,24 @@
                             </StackPanel>
                         </StackPanel>
 
+                        <StackPanel Visibility="{Binding Path=DataToSendType, Converter={StaticResource DataToSendConverter}, ConverterParameter=Inverted}">
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <ComboBox Width="200" Margin="0,0,10,0"/> 
+                                <Button Content="+" Width="25" ToolTip="Add a new byte array."/>
+                            </StackPanel>
+                            
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Count:"/>
+                                <Label Content="3"/>
+                            </StackPanel>
+                            
+                            
+                            <TextBlock Text="34, 65, 67" HorizontalAlignment="Center"/>
+
+                            <Button Width="100" Content="Send" Margin="0,0,0,10" Command="{Binding Path=SendCommand}"/>
+                        </StackPanel>
+
                     </StackPanel>
                 </Border>
 
