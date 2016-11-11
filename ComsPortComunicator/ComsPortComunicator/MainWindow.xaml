@@ -25,7 +25,7 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         
-        <Style TargetType="ComboBox">
+        <Style x:Key="EnabledWhileOpen" TargetType="ComboBox">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=ComPort.State}" Value="Open">
                     <Setter Property="ComboBox.IsEnabled" Value="False"/>
@@ -41,32 +41,32 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Port:" Width="75"/>
-                <ComboBox Width="100" ItemsSource="{Binding Path=ComPortNames}" SelectedItem="{Binding Path=ComPort.PortName}"/>
+                <ComboBox Style="{StaticResource EnabledWhileOpen}" Width="100" ItemsSource="{Binding Path=ComPortNames}" SelectedItem="{Binding Path=ComPort.PortName}"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Baud Rate:" Width="75"/>
-                <ComboBox Width="100" ItemsSource="{Binding Path=ComBaudRates}" SelectedItem="{Binding Path=ComPort.BaudRate}"/>
+                <ComboBox Style="{StaticResource EnabledWhileOpen}" Width="100" ItemsSource="{Binding Path=ComBaudRates}" SelectedItem="{Binding Path=ComPort.BaudRate}"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Data Bits:" Width="75"/>
-                <ComboBox Width="100" ItemsSource="{Binding Path=ComDataBits}" SelectedItem="{Binding Path=ComPort.DataBits}" />
+                <ComboBox Style="{StaticResource EnabledWhileOpen}" Width="100" ItemsSource="{Binding Path=ComDataBits}" SelectedItem="{Binding Path=ComPort.DataBits}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Stop Bits:" Width="75"/>
-                <ComboBox Width="100" ItemsSource="{Binding Path=ComStopBits}" SelectedItem="{Binding Path=ComPort.StopBits}" />
+                <ComboBox Style="{StaticResource EnabledWhileOpen}" Width="100" ItemsSource="{Binding Path=ComStopBits}" SelectedItem="{Binding Path=ComPort.StopBits}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Parity:" Width="75"/>
-                <ComboBox Width="100" ItemsSource="{Binding Path=ComParities}" SelectedItem="{Binding Path=ComPort.Parity}"/>
+                <ComboBox Style="{StaticResource EnabledWhileOpen}" Width="100" ItemsSource="{Binding Path=ComParities}" SelectedItem="{Binding Path=ComPort.Parity}"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="Handshake:" Width="75"/>
-                <ComboBox Width="100" ItemsSource="{Binding Path=ComHandShakes}" SelectedItem="{Binding Path=ComPort.HandShake}"/>
+                <ComboBox Style="{StaticResource EnabledWhileOpen}" Width="100" ItemsSource="{Binding Path=ComHandShakes}" SelectedItem="{Binding Path=ComPort.HandShake}"/>
             </StackPanel>
         
             <Button Margin="10" Width="100" Height="25" Content="{Binding Path=PortOpenString}" Command="{Binding Path=OpenCommand}"/>
@@ -91,7 +91,7 @@
            
             <StackPanel Visibility="{Binding Path=ComPort.State, Converter={StaticResource StateConverter}, ConverterParameter=Normal}">
 
-                <ComboBox ItemsSource="{Binding Source={StaticResource DataTypeValues}}"/>
+                <ComboBox Width="100" ItemsSource="{Binding Source={StaticResource DataTypeValues}}"/>
 
                 <Border BorderThickness="1" BorderBrush="Blue" CornerRadius="6">
                 <StackPanel>
