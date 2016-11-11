@@ -93,10 +93,19 @@
 
                 <ComboBox ItemsSource="{Binding Source={StaticResource DataTypeValues}}"/>
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBox Width="590" Margin="10,0,10,0" Text="{Binding Path=TextToSend}"/>
-                    <Button Width="100" Content="Send" Command="{Binding Path=SendCommand}"/>
+                <Border BorderThickness="1" BorderBrush="Blue" CornerRadius="6">
+                <StackPanel>
+                    
+                    <Label HorizontalAlignment="Center" Content="Type a string into the text box and click send to send your string"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                            <TextBox  Width="500" Margin="10,0,10,10" Text="{Binding Path=TextToSend}"/>
+                            <Button Width="100" Content="Send" Margin="0,0,0,10" Command="{Binding Path=SendCommand}"/>
+                    </StackPanel>
+                        
                 </StackPanel>
+                </Border>
+
+
 
                 <StackPanel>
                     <StackPanel.Style>
