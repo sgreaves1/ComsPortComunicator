@@ -13,22 +13,22 @@ namespace ComsPortComunicator.ViewModel
     public class MainWindowViewModel : BaseViewModel
     {
         private ObservableCollection<string> _comPortNames = new ObservableCollection<string>();
+        private ComPortModel _comPort = new ComPortModel();
+
+        private ObservableCollection<ByteArrayModel> _byteArrayModels = new ObservableCollection<ByteArrayModel>();
+        private ByteArrayModel _byteArrayModel; 
+
         private List<string> _comBaudRates = new List<string>();
         private List<string> _comDataBits = new List<string>();
         private List<string> _comStopBits = new List<string>();
         private List<string> _comParities = new List<string>();
         private List<string> _comHandShakes = new List<string>();
 
-        private ComPortModel _comPort = new ComPortModel();
-
-        private string _portOpenString;
-
-        private DataToSendType _dataToSendType;
-
-        private string _textToSend;
-
-        private string _recievedText;
         
+        private string _portOpenString;
+        private DataToSendType _dataToSendType;
+        private string _textToSend;
+        private string _recievedText;
 
         public MainWindowViewModel()
         {
@@ -37,7 +37,7 @@ namespace ComsPortComunicator.ViewModel
 
             InitCommands();
 
-            PopulateLists();
+            PopulateComPortLists();
 
             ComPort.PortDataReceivedEvent += DataRecieved;
         }
@@ -48,7 +48,7 @@ namespace ComsPortComunicator.ViewModel
             RecievedText += "\n";
         }
         
-        private void PopulateLists()
+        private void PopulateComPortLists()
         {
             ComBaudRates.Add("300");
             ComBaudRates.Add("600");
@@ -93,6 +93,36 @@ namespace ComsPortComunicator.ViewModel
             set { _comPortNames = value; }
         }
 
+        public ComPortModel ComPort
+        {
+            get { return _comPort; }
+            set
+            {
+                _comPort = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<ByteArrayModel> ByteArrayModels
+        {
+            get { return _byteArrayModels; }
+            set
+            {
+                _byteArrayModels = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ByteArrayModel ByteArrayModel
+        {
+            get { return _byteArrayModel; }
+            set
+            {
+                _byteArrayModel = value;
+                OnPropertyChanged();
+            }
+        }
+
         public List<string> ComBaudRates
         {
             get { return _comBaudRates; }
@@ -123,15 +153,7 @@ namespace ComsPortComunicator.ViewModel
             set { _comHandShakes = value; }
         }
 
-        public ComPortModel ComPort
-        {
-            get { return _comPort; }
-            set
-            {
-                _comPort = value;
-                OnPropertyChanged();
-            }
-        }
+        
         
         public string PortOpenString
         {

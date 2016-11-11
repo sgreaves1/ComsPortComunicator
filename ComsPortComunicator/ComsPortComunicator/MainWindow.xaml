@@ -109,7 +109,7 @@
                         <StackPanel Visibility="{Binding Path=DataToSendType, Converter={StaticResource DataToSendConverter}, ConverterParameter=Inverted}">
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <ComboBox Width="200" Margin="0,0,10,0"/> 
+                                <ComboBox ItemsSource="{Binding Path=ByteArrayModels}" DisplayMemberPath="Name" Width="200" Margin="0,0,10,0"/> 
                                 <Button Content="+" Width="25" ToolTip="Add a new byte array."/>
                             </StackPanel>
                             
