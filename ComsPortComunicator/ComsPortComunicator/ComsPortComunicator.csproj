@@ -60,6 +60,7 @@
     <Compile Include="Converter\PortCountToVisibilityConverter.cs" />
     <Compile Include="Converter\PortStatusToVisibilityConverter.cs" />
     <Compile Include="Converter\StringEmptyToVisibilityConverter.cs" />
+    <Compile Include="Data\DataReader.cs" />
     <Compile Include="Enum\ComOpenState.cs" />
     <Compile Include="Enum\DataToSendType.cs" />
     <Compile Include="Model\BaseModel.cs" />
@@ -108,7 +109,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Data\Data.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

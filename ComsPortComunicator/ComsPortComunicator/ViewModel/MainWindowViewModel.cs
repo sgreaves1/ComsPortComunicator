@@ -5,6 +5,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Windows.Input;
 using ComsPortComunicator.Command;
+using ComsPortComunicator.Data;
 using ComsPortComunicator.Enum;
 using ComsPortComunicator.Model;
 
@@ -41,6 +42,8 @@ namespace ComsPortComunicator.ViewModel
             PopulateComPortLists();
 
             ComPort.PortDataReceivedEvent += DataRecieved;
+
+            ReadData();
         }
 
         private void DataRecieved(object sender, SerialDataReceivedEventArgs serialDataReceivedEventArgs)
@@ -81,6 +84,13 @@ namespace ComsPortComunicator.ViewModel
             ComHandShakes.Add("XOnXOff");
             ComHandShakes.Add("RequestToSend");
             ComHandShakes.Add("RequestToSendXOnxOff");
+        }
+
+        private void ReadData()
+        {
+            DataReader reader = new DataReader();
+
+            ByteArrayModels = reader.GetByteArrayModels();
         }
 
         public void OnClosing(object sender, CancelEventArgs cancelEventArgs)
