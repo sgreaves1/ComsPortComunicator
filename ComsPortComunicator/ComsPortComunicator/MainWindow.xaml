@@ -91,8 +91,8 @@
            
             <StackPanel Visibility="{Binding Path=ComPort.State, Converter={StaticResource StateConverter}, ConverterParameter=Normal}">
 
-                <ComboBox Width="100" ItemsSource="{Binding Source={StaticResource DataTypeValues}}"/>
-
+                <ComboBox Width="100" Margin="0,0,0,10" ItemsSource="{Binding Source={StaticResource DataTypeValues}}" SelectedValue="{Binding Path=DataToSendType}"/>
+                            
                 <Border BorderThickness="1" BorderBrush="Blue" CornerRadius="6">
                 <StackPanel>
                     

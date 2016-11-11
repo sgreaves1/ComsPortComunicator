@@ -23,6 +23,8 @@ namespace ComsPortComunicator.ViewModel
 
         private string _portOpenString;
 
+        private DataToSendType _dataToSendType;
+
         private string _textToSend;
 
         private string _recievedText;
@@ -31,6 +33,7 @@ namespace ComsPortComunicator.ViewModel
         public MainWindowViewModel()
         {
             PortOpenString = "Open Port";
+            DataToSendType = DataToSendType.Strings;
 
             InitCommands();
 
@@ -136,6 +139,16 @@ namespace ComsPortComunicator.ViewModel
             set
             {
                 _portOpenString = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DataToSendType DataToSendType
+        {
+            get {  return _dataToSendType; }
+            set
+            {
+                _dataToSendType = value;
                 OnPropertyChanged();
             }
         }
