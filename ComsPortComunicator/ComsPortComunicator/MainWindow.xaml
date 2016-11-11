@@ -6,8 +6,10 @@
         xmlns:converter="clr-namespace:ComsPortComunicator.Converter"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:ComsPortComunicator.Enum"
+        xmlns:viewModel="clr-namespace:ComsPortComunicator.ViewModel"
         mc:Ignorable="d"
-        Title="Com Port Communicator" Height="550" Width="725">
+        Title="Com Port Communicator" Height="550" Width="725"
+        d:DataContext="{d:DesignInstance Type=viewModel:DesignerMainWindowViewModel, IsDesignTimeCreatable=True}">
     
     <Window.InputBindings>
         <KeyBinding Command="{Binding RefreshPortsCommand}" Key="F5"></KeyBinding>
@@ -108,18 +110,21 @@
 
                         <StackPanel Visibility="{Binding Path=DataToSendType, Converter={StaticResource DataToSendConverter}, ConverterParameter=Inverted}">
 
+                            <Label Content="Select a byte array from the dropdown and click send to send bytes." HorizontalAlignment="Center"/>
+                            <Label Content="Click the + button to make your own byte array to send." HorizontalAlignment="Center"/>
+                            
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <ComboBox ItemsSource="{Binding Path=ByteArrayModels}" DisplayMemberPath="Name" Width="200" Margin="0,0,10,0"/> 
+                                <ComboBox ItemsSource="{Binding Path=ByteArrayModels}" SelectedValue="{Binding Path=ByteArrayModel}" DisplayMemberPath="Name" Width="200" Margin="0,0,10,0"/> 
                                 <Button Content="+" Width="25" ToolTip="Add a new byte array."/>
                             </StackPanel>
                             
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Label Content="Count:"/>
-                                <Label Content="3"/>
+                                <Label Content="{Binding Path=ByteArrayModel.Bytes.Count}"/>
                             </StackPanel>
-                            
-                            
-                            <TextBlock Text="34, 65, 67" HorizontalAlignment="Center"/>
+
+
+                            <TextBlock Text="{Binding Path=BytesAsString}" HorizontalAlignment="Center"/>
 
                             <Button Width="100" Content="Send" Margin="0,0,0,10" Command="{Binding Path=SendCommand}"/>
                         </StackPanel>

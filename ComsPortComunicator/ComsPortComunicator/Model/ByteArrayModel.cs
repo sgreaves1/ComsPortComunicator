@@ -1,12 +1,17 @@
-﻿namespace ComsPortComunicator.Model
+﻿using System.Collections.ObjectModel;
+
+namespace ComsPortComunicator.Model
 {
     public class ByteArrayModel : BaseModel
     {
         private string _name;
 
-        public ByteArrayModel(string name)
+        private ObservableCollection<byte> _bytes= new ObservableCollection<byte>(); 
+
+        public ByteArrayModel(string name, ObservableCollection<byte> bytes)
         {
             Name = name;
+            Bytes = bytes;
         }
 
         public string Name
@@ -18,5 +23,15 @@
                 OnPropertyChanged();
             }
         }
+
+        public ObservableCollection<byte> Bytes
+        {
+            get { return _bytes; }
+            set
+            {
+                _bytes = value;
+                OnPropertyChanged();
+            }
+        } 
     }
 }

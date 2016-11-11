@@ -28,6 +28,7 @@ namespace ComsPortComunicator.ViewModel
         private string _portOpenString;
         private DataToSendType _dataToSendType;
         private string _textToSend;
+        private string _bytesAsString;
         private string _recievedText;
 
         public MainWindowViewModel()
@@ -87,6 +88,17 @@ namespace ComsPortComunicator.ViewModel
             ComPort.Close();
         }
 
+        private void PopulateByteText()
+        {
+            BytesAsString = "";
+
+            foreach (byte b in ByteArrayModel.Bytes)
+            {
+                BytesAsString += b;
+                BytesAsString += " ";
+            }
+        }
+
         public ObservableCollection<string> ComPortNames
         {
             get { return _comPortNames; }
@@ -119,6 +131,7 @@ namespace ComsPortComunicator.ViewModel
             set
             {
                 _byteArrayModel = value;
+                PopulateByteText();
                 OnPropertyChanged();
             }
         }
@@ -181,6 +194,16 @@ namespace ComsPortComunicator.ViewModel
             set
             {
                 _textToSend = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string BytesAsString
+        {
+            get { return _bytesAsString; }
+            set
+            {
+                _bytesAsString = value;
                 OnPropertyChanged();
             }
         }
