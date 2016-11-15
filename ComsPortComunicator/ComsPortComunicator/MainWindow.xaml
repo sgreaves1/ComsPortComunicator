@@ -82,9 +82,11 @@
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=ComPort.State}" Value="Open">
                                     <Setter Property="Canvas.Background" Value="Green"/>
+                                    <Setter Property="ToolTip" Value="Open"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Path=ComPort.State}" Value="Closed">
                                     <Setter Property="Canvas.Background" Value="Red"/>
+                                    <Setter Property="ToolTip" Value="Closed"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
