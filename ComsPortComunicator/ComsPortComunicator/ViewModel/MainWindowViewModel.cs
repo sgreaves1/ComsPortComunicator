@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Windows.Input;
+using System.Xaml;
 using ComsPortComunicator.Command;
 using ComsPortComunicator.Data;
 using ComsPortComunicator.Enum;
@@ -102,10 +103,13 @@ namespace ComsPortComunicator.ViewModel
         {
             BytesAsString = "";
 
-            foreach (byte b in ByteArrayModel.Bytes)
+            if (ByteArrayModel != null)
             {
-                BytesAsString += b;
-                BytesAsString += " ";
+                foreach (byte b in ByteArrayModel.Bytes)
+                {
+                    BytesAsString += b;
+                    BytesAsString += " ";
+                }
             }
         }
 
@@ -295,8 +299,18 @@ namespace ComsPortComunicator.ViewModel
 
         private void ExecuteSendCommand()
         {
-            ComPort.Send(TextToSend);
-            TextToSend = "";
+            switch (DataToSendType)
+            {
+                case DataToSendType.Strings:
+                    ComPort.Send(TextToSend);
+                    TextToSend = "";
+                break;
+                case DataToSendType.Bytes:
+                    ComPort.Send(ByteArrayModel.Bytes.ToArray());
+                    ByteArrayModel = null;
+                break;
+            }
+            
         }
     }
 }

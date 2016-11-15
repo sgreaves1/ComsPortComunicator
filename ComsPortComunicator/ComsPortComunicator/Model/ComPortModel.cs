@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO.Ports;
+using System.Linq;
 using ComsPortComunicator.Enum;
 
 namespace ComsPortComunicator.Model
@@ -112,6 +113,12 @@ namespace ComsPortComunicator.Model
         {
             if (!string.IsNullOrEmpty(text))
                 _serialPort.Write(text);
+        }
+
+        public void Send(byte[] bytes)
+        {
+            if (bytes != null)
+                _serialPort.Write(bytes, 0, bytes.Count());
         }
 
         public string ReadExisting()
