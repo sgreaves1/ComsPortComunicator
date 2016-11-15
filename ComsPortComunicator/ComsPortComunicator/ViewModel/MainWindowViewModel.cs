@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Windows.Input;
-using System.Xaml;
 using ComsPortComunicator.Command;
 using ComsPortComunicator.Data;
 using ComsPortComunicator.Enum;
@@ -294,6 +293,15 @@ namespace ComsPortComunicator.ViewModel
 
         private bool CanExecuteSendCommand()
         {
+            switch (DataToSendType)
+            {
+                case DataToSendType.Bytes:
+                    if (ByteArrayModel != null)
+                        return true;
+
+                    return false;
+            }
+            
             return true;
         }
 
