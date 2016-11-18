@@ -121,9 +121,12 @@ namespace ComsPortComunicator.Model
                 _serialPort.Write(bytes, 0, bytes.Count());
         }
 
-        public string ReadExisting()
+        public byte[] Read()
         {
-            return _serialPort.ReadExisting();
+            byte[] bytes = new byte[100];
+            _serialPort.Read(bytes, 0, bytes.Length);
+
+            return bytes;
         }
 
         public string PortName

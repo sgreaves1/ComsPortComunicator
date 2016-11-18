@@ -48,7 +48,14 @@ namespace ComsPortComunicator.ViewModel
 
         private void DataRecieved(object sender, SerialDataReceivedEventArgs serialDataReceivedEventArgs)
         {
-            RecievedText += ComPort.ReadExisting();
+            byte[] bytes = ComPort.Read();
+
+            foreach (var b in bytes)
+            {
+                if (b != 0)
+                    RecievedText += b + " ";
+            }
+
             RecievedText += "\n";
         }
         
