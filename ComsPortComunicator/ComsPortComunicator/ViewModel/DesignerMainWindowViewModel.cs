@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using ComsPortComunicator.Enum;
 using ComsPortComunicator.Model;
 
@@ -23,14 +24,7 @@ namespace ComsPortComunicator.ViewModel
         {
             get
             {
-                string bytes = "";
-
-                foreach (byte b in ByteArrayModel.Bytes)
-                {
-                    bytes += b + " ";
-                }
-
-                return bytes;
+                return ByteArrayModel.Bytes.Aggregate("", (current, b) => current + (b + " "));
             }
         }
     }
